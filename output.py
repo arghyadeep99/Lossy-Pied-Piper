@@ -57,7 +57,7 @@ def run(fileList):
     '''
     for i in range(len(fileList)):
         name = ntpath.basename(fileList[i])
-        compressed_file_name =  "Compressed_Images/"+name[:len(name)-4]+"_compressed"+name[len(name)-4:]
+        compressed_file_name =  "./Compressed-Images/"+name[:len(name)-4]+"_compressed"+name[len(name)-4:]
         create_table(root,name,fileList[i],compressed_file_name,rows)
         rows = rows+1
     mainloop()

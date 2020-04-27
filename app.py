@@ -43,8 +43,8 @@ def get_image_dimensions(imagefile):             # Function to get the dimension
 
 
 def create_folder():
-    path = "Compressed_Images"                  # Creates the folder and in order to save the image in this folder
-    os.rmdir(path)
+    path = "./Compressed-Images/"                  # Creates the folder and in order to save the image in this folder
+    #os.rmdir(path)
     os.mkdir(path)
 
 
@@ -62,9 +62,9 @@ def run():
     center(root)
    
     file = tf.askopenfilenames(title="Choose Images", filetypes=(
-        ("jpeg files", "*.jpg"), ("png files", "*.png")))               # Select two type of iamges : jpg and png
+        ("jpeg files", "*.jpg"), ("png files", "*.png"), ("tif files", "*.tif")))               # Select three type of images : jpg, tif and png
     files = list(file)
-    # create_folder()
+    create_folder()
     ans = 0
     mini = math.inf
     maxi = -math.inf
@@ -75,7 +75,7 @@ def run():
             if x[j] == '/':
                 ind = j
         ext = str(file[i][len(x)-4:len(x)])
-        file2 = "Compressed_Images/"+file[i][ind+1:len(x)-4]+"_compressed"+ext    # create the path inorder to save the  compressed image in the created folder
+        file2 = "./Compressed-Images/"+file[i][ind+1:len(x)-4]+"_compressed"+ext    # create the path inorder to save the  compressed image in the created folder
         ans1 = running(file[i], file2, ext)                                       # The function to compress the image which returns the compression ratio
     
         '''
