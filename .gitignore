@@ -5,7 +5,7 @@ __pycache__/
 
 # C extensions
 *.so
-./Compressed-Images
+Compressed-Images
 # Distribution / packaging
 .Python
 build/
