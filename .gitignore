@@ -2,10 +2,10 @@
 __pycache__/
 *.py[cod]
 *$py.class
+Compressed-Images/
 
 # C extensions
 *.so
-Compressed-Images
 # Distribution / packaging
 .Python
 build/
