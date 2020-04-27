@@ -43,9 +43,13 @@ def get_image_dimensions(imagefile):             # Function to get the dimension
 
 
 def create_folder():
-    path = "./Compressed-Images/"                  # Creates the folder and in order to save the image in this folder
-    #os.rmdir(path)
-    os.mkdir(path)
+    cwd=os.getcwd()
+
+    path = os.path.join(cwd,"Compressed-Images")                  # Creates the folder and in order to save the image in this folder
+    if not os.path.exists(path):
+        os.mkdir(path)
+    else:
+        pass
 
 
 def run():  
