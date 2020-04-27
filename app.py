@@ -9,14 +9,41 @@ import tkinter.filedialog as tf
 import math
 import output as getit
 
+sizes = [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192]  # po2 sizes
 
-def running(file, file_comp, file_ext):
+
+def get_closest(y):
+    """ Return the closest power of 2 in either direction"""
+    return min(sizes, key=lambda x: abs(x - y))
+
+
+def po2(im, threshold=0.25):
+    """ 
+    Return a resized image that is a power of 2 
+    (Checking that if image size is reduced it was fairly close to that size anyway based on threshold)
+    """
+    width, height = im.size
+    largest_dim = max(width, height)
+    new_dim = max(get_closest(width), get_closest(height))  # new dimension will be largest of x or y po2
+    print(new_dim)
+    if new_dim < largest_dim:  # if it's smaller, make sure its within threshold
+        if (largest_dim - new_dim) > int(new_dim * threshold):
+            new_dim = sizes[sizes.index(new_dim) + 1]
+            return im.resize((new_dim, new_dim), resample=Image.BICUBIC)
+        else:
+            return im.resize((new_dim, new_dim), resample=Image.LANCZOS)
+    else:
+        return im.resize((new_dim, new_dim), resample=Image.BICUBIC)
+
+def running(file, file_recreate, file_comp, file_ext):
     img = util.load_img(file)                       # Loads the image selected
-    coef = comp.extract_rgb_coeff(img)              # Extracts the RBG Coefficients from the image 
+    #img = po2(img)                                 # Converts it to nearest power of 2 image
+    #print("Image dimensions: ", img.size)
+    coef, comp_rep = comp.extract_rgb_coeff(img)    # Extracts the RBG Coefficients from the image and also the compressed form of the image
     image = comp.img_from_dwt_coeff(coef)           # Forms the new image using the dwt coeeficients
     comp_file = "compress"+file_ext
-    image.save(comp_file)                           # Saves the image
-
+    image.save(comp_file)                           # Saves the image       
+    comp_rep.save(file_comp)                        # Saves the compressed representation of the image
     '''
     Below lines of the code are to resize and enhance the images
     '''
@@ -26,10 +53,9 @@ def running(file, file_comp, file_ext):
     file_enh = "enhanced"+file_ext
     image.save(file_enh)
     im = Image.open(file_enh)
-    size = get_image_dimensions(file)
-    im_resized = im.resize(size, Image.
-                           ANTIALIAS)
-    im_resized.save(file_comp)
+    size = img.size
+    im_resized = im.resize(size, Image.BICUBIC)
+    im_resized.save(file_recreate)
     
     os.remove(comp_file)
     os.remove(file_enh)
@@ -42,10 +68,9 @@ def get_image_dimensions(imagefile):             # Function to get the dimension
     return int(width), int(height)              # returns the width and height of the image in terms of pixels
 
 
-def create_folder():
+def create_folder(text):
     cwd=os.getcwd()
-
-    path = os.path.join(cwd,"Compressed-Images")                  # Creates the folder and in order to save the image in this folder
+    path = os.path.join(cwd,text)  # Creates the folder and in order to save the image in this folder
     if not os.path.exists(path):
         os.mkdir(path)
     else:
@@ -66,9 +91,10 @@ def run():
     center(root)
    
     file = tf.askopenfilenames(title="Choose Images", filetypes=(
-        ("jpeg files", "*.jpg"), ("png files", "*.png"), ("tif files", "*.tif")))               # Select three type of images : jpg, tif and png
+        ("jpeg files", "*.jpg"), ("png files", "*.png"), ("tif files", "*.tif"), ("bmp files","*.bmp")))               # Select three type of images : jpg, tif and png
     files = list(file)
-    create_folder()
+    create_folder("Recreated-Images")
+    create_folder("Compressed-Images")
     ans = 0
     mini = math.inf
     maxi = -math.inf
@@ -79,8 +105,9 @@ def run():
             if x[j] == '/':
                 ind = j
         ext = str(file[i][len(x)-4:len(x)])
-        file2 = "./Compressed-Images/"+file[i][ind+1:len(x)-4]+"_compressed"+ext    # create the path inorder to save the  compressed image in the created folder
-        ans1 = running(file[i], file2, ext)                                       # The function to compress the image which returns the compression ratio
+        file2 = "./Recreated-Images/"+file[i][ind+1:len(x)-4]+"_recreated"+ext    # create the path inorder to save the  recreated image in the created folder
+        file3 = "./Compressed-Images/"+file[i][ind+1:len(x)-4]+"_compressed"+ext
+        ans1 = running(file[i], file2, file3, ext)                                       # The function to compress the image which returns the compression ratio
     
         '''
         Finds the maximum compression and minimum compression ratio when multiple images are selected
@@ -89,8 +116,8 @@ def run():
         maxi = max(maxi, ans1)                                                        
         ans += ans1
     
-    print("\nCompression Ratio : %.2f" % (ans/len(file)))
-    print("\nMax : "+str(maxi) + "\nMin : " + str(mini))
+    #print("\nCompression Ratio : %.2f" % (ans/len(file)))
+    #print("\nMax : "+str(maxi) + "\nMin : " + str(mini))
     root.destroy()
     getit.run(files)
 
