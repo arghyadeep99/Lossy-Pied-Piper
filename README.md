@@ -36,19 +36,19 @@ With the advent of powerful image sensors that provide very high-quality images,
 <img src="./screenshots/ss1.png" height=700px/>
 <br>
 <h4 align="center">Choose Images</h4>
-<img src="./screenshots/ss2.png"height=700px/>
+<img src="./screenshots/ss2.png"/>
 <br>
 <h4 align="center">Output Screen</h4>
-<img src="./screenshots/ss3.png"height=700px/>
+<img src="./screenshots/ss3.png"/>
 <br>
 <h4 align="center">Original Image</h4>
-<img src="./screenshots/ss4.png"height=700px/>
+<img src="./screenshots/ss4.png"/>
 <br>
 <h4 align="center">Compressed Representation</h4>
-<img src="./screenshots/ss5.png"height=700px/>
+<img src="./screenshots/ss5.png"/>
 <br>
 <h4 align="center">Recreated Image</h4>
-<img src="./screenshots/ss6.png"height=700px/>
+<img src="./screenshots/ss6.png"/>
 <br>
 </div>
 
