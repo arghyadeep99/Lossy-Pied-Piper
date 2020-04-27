@@ -1,6 +1,6 @@
-# Image Compression using discrete wavelet transform
+# Image Compression using Discrete Wavelet Transform
 
-With the advent of powerful image sensors that provide very high-quality images, image  compression has become a necessity. Images have to be transferred over large distances  viz space telescopes, rendered on mobile phones having weaker internet connection and  be used in various other applications. Our project aims to address some of these issues  by using Discrete Wavelet Transform based image compression in python.
+With the advent of powerful image sensors that provide very high-quality images, image  compression has become a necessity. Images have to be transferred over large distances  viz space telescopes, rendered on mobile phones having weaker internet connection and  be used in various other applications. Our project aims to address some of these issues  by using Discrete Wavelet Transform based image compression in Python.
 
 ### Prerequisites
 
@@ -14,9 +14,8 @@ PyWavelet   : pip3 install PyWavelets
 
 ## Authors
 
-* [**Namit Shah**](https://github.com/NamitS27)
-* [**Martand Javia**](https://github.com/MRJ35)
-* [**Harvish Jariwala**](https://github.com/harvishj)
+* [**Arghyadeep Das**](https://github.com/arghyadeep99)
+* [**Gaurang Athavale**](https://github.com/gaurangathavale)
+* [**Haurav Bhagwanani**](https://github.com/g-bhagwanani)
 
-See also the list of [contributors](https://github.com/NamitS27/Image-Compression-DWT/graphs/contributors) who participated in this project.
 
